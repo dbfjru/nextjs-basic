@@ -1,6 +1,6 @@
 'use client'
 import React from 'react';
-import {SubmitHandler, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 
 type Inputs = {
     userId?: string;
@@ -22,128 +22,133 @@ const SignupPage = () => {
         }
     })
 
-    const onSubmit = (data: SubmitHandler<Inputs>) => {
+    const onSubmit = (data: Inputs) => {
         console.log('submitData--->', data)
     }
 
     return (
-        <div style={{
-            maxWidth: '480px',
-            margin: '40px auto',
-            padding: '20px',
-            border: '1px solid #ccc',
-            borderRadius: '8px'
-        }} className={"bg-cyan-800"}>
-            <h1 style={{textAlign: 'center', marginBottom: '24px'}}>회원가입</h1>
-            <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex', flexDirection: 'column', gap: '16px'}}>
-                <div>
-                    <label htmlFor="userId" style={{display: 'block', marginBottom: '8px', fontWeight: 'bold'}}>
+        <div className={"bg-cyan-800 w-[50%] rounded-xl px-4 pt-8 pb-16 transform -translate-y-[10rem]"}>
+            <h1 className={"text-2xl text-center mb-4 font-extrabold"}>회원가입</h1>
+            <form onSubmit={handleSubmit(onSubmit)}
+                  className={"flex flex-col items-center gap-4 bg-cyan-600 rounded-md p-4"}>
+                <div className="flex flex-col gap-2 w-[80%]">
+                    <label className={"text-lg font-bold"} htmlFor={"userId"}>
                         아이디
                     </label>
-                    <input
-                        type="text"
-                        style={{width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc'}}
-                        {...register("userId", {
-                            required: {
-                                value: true,
-                                message: "필수"
-                            },
-                            maxLength: {
-                                value: 10,
-                                message: "10글자 이하로 작성하세요"
-                            }
-                        })}
-                    />
-                    {
-                        errors.userId && <span style={{color: 'red'}}>{errors.userId.message}</span>
-                    }
+                    <div>
+                        <input
+                            id={"userId"}
+                            type="text"
+                            className={"w-[80%] border border-gray-300 rounded-md p-2"}
+                            {...register("userId", {
+                                required: {
+                                    value: true,
+                                    message: "필수"
+                                },
+                                maxLength: {
+                                    value: 10,
+                                    message: "10글자 이하로 작성하세요"
+                                }
+                            })}
+                        />
+                        {
+                            errors.userId && <span className={"ml-2 text-red-700"}>{errors.userId.message}</span>
+                        }
+                    </div>
                 </div>
 
-                <div>
-                    <label htmlFor="password" style={{display: 'block', marginBottom: '8px', fontWeight: 'bold'}}>
+                <div className="flex flex-col gap-2 w-[80%]">
+                    <label className={"text-lg font-bold"} htmlFor={"password"}>
                         패스워드
                     </label>
-                    <input
-                        id={"password"}
-                        type="password"
-                        {...register("password", {
-                            required: {
-                                value: true,
-                                message: "필수"
-                            }
-                        })}
-                    />
-                    {
-                        errors.password && <span style={{color: 'red'}}>{errors.password.message}</span>
-                    }
+                    <div>
+                        <input
+                            id={"password"}
+                            type="password"
+                            className={"w-[80%] border border-gray-300 rounded-md p-2"}
+                            {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: "필수"
+                                }
+                            })}
+                        />
+                        {
+                            errors.password && <span className={"ml-2 text-red-700"}>{errors.password.message}</span>
+                        }
+                    </div>
                 </div>
 
-                <div>
-                    <label htmlFor="password" style={{display: 'block', marginBottom: '8px', fontWeight: 'bold'}}>
+                <div className="flex flex-col gap-2 w-[80%]">
+                    <label className={"text-lg font-bold"} htmlFor={"checkPassword"}>
                         패스워드 확인
                     </label>
-                    <input
-                        type="password"
-                        {...register("checkPassword", {
-                            required: {
-                                value: true,
-                                message: "필수"
-                            }
-                        })}
-                    />
-                    {
-                        errors.checkPassword && <span style={{color: 'red'}}>{errors.checkPassword.message}</span>
-                    }
+                    <div>
+                        <input
+                            id={"checkPassword"}
+                            type="password"
+                            className={"w-[80%] border border-gray-300 rounded-md p-2"}
+                            {...register("checkPassword", {
+                                required: {
+                                    value: true,
+                                    message: "필수"
+                                }
+                            })}
+                        />
+                        {
+                            errors.checkPassword &&
+                            <span className={"ml-2 text-red-700"}>{errors.checkPassword.message}</span>
+                        }
+                    </div>
                 </div>
 
-                <div>
-                    <label htmlFor="name" style={{display: 'block', marginBottom: '8px', fontWeight: 'bold'}}>
+                <div className="flex flex-col gap-2 w-[80%]">
+                    <label className={"text-lg font-bold"} htmlFor={"name"}>
                         이름
                     </label>
-                    <input
-                        type="text"
-                        {...register("name", {
-                            required: {
-                                value: true,
-                                message: "필수"
-                            }
-                        })}
-                    />
-                    {
-                        errors.name && <span style={{color: 'red'}}>{errors.name.message}</span>
-                    }
+                    <div>
+                        <input
+                            id={"name"}
+                            type="text"
+                            className={"w-[80%] border border-gray-300 rounded-md p-2"}
+                            {...register("name", {
+                                required: {
+                                    value: true,
+                                    message: "필수"
+                                }
+                            })}
+                        />
+                        {
+                            errors.name && <span className={"ml-2 text-red-700"}>{errors.name.message}</span>
+                        }
+                    </div>
                 </div>
 
-                <div>
-                    <label htmlFor="address" style={{display: 'block', marginBottom: '8px', fontWeight: 'bold'}}>
+                <div className="flex flex-col gap-2 w-[80%]">
+                    <label className={"text-lg font-bold"} htmlFor={"address"}>
                         주소
                     </label>
-                    <input
-                        type="text"
-                        {...register("address", {
-                            required: {
-                                value: true,
-                                message: "필수"
-                            }
-                        })}
-                    />
-                    {
-                        errors.address && <span style={{color: 'red'}}>{errors.address.message}</span>
-                    }
+                    <div>
+                        <input
+                            id={"address"}
+                            type="text"
+                            className={"w-[80%] border border-gray-300 rounded-md p-2"}
+                            {...register("address", {
+                                required: {
+                                    value: true,
+                                    message: "필수"
+                                }
+                            })}
+                        />
+                        {
+                            errors.address && <span className={"ml-2 text-red-700"}>{errors.address.message}</span>
+                        }
+                    </div>
                 </div>
 
                 <button
                     type="submit"
-                    style={{
-                        padding: '10px',
-                        marginTop: '16px',
-                        backgroundColor: '#0070f3',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '16px',
-                    }}
+                    className={"p-2.5 mt-[1rem] bg-blue-600 rounded-md cursor-pointer text-xl font-bold"}
                 >
                     가입하기
                 </button>
