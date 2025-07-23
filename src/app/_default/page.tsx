@@ -23,6 +23,9 @@ export default function Home() {
           <li className="tracking-[-.01em]">
             Save and see your changes instantly.
           </li>
+          <li className="tracking-[-.01em]">
+            This is Test Text. This file path is &#34;src/app/page.tsx&#34;.
+          </li>
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
