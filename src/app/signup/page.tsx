@@ -1,18 +1,22 @@
 'use client'
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useForm} from "react-hook-form";
-
-type Inputs = {
-    userId?: string;
-    password?: string;
-    checkPassword?: string;
-    name?: string;
-    address?: string;
-}
-
+import {ISignup} from "@/app/interfaces/types";
 
 const SignupPage = () => {
-    const {register, handleSubmit, watch, reset, getValues, formState: {errors}} = useForm<Inputs>({
+    useEffect(() => {
+        console.log('Fetching Data...');
+        const response = fetch('/api/auth/signup', {})
+            .then(res => res.json())
+            .then(data => {
+                    console.log(data);
+                    console.log("...Real Done!!");
+                }
+            );
+        console.log('Fetching Data...Done')
+    }, [])
+
+    const {register, handleSubmit, watch, formState: {errors}} = useForm<ISignup>({
         defaultValues: {
             userId: '',
             password: '',
@@ -22,13 +26,38 @@ const SignupPage = () => {
         }
     })
 
-    const onSubmit = (data: Inputs) => {
-        console.log('submitData--->', data)
+    const onSubmit = async (data: ISignup) => {
+        console.log("<START--------------------")
+        console.log('1. Data: ', data);
+        //TODO: /api/auth/signup 에 post 전송하여 응답받기
+        try {
+            const response = await fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data),
+            });
+            console.log("2-1. Response Header");
+            response.headers.forEach(
+                (value, key) => {
+                    console.log(key, value);
+                }
+            );
+
+            const resData = await response.json();
+            console.log("2-2. Response Data");
+            console.log(resData);
+
+        } catch (error) {
+            console.log(error)
+        }
+        console.log("--------------------Done>")
     }
 
     return (
-        <div className={"bg-cyan-800 w-[50%] rounded-xl px-4 pt-8 pb-16 transform -translate-y-[10rem]"}>
-            <h1 className={"text-2xl text-center mb-4 font-extrabold"}>회원가입</h1>
+        <div className={"bg-cyan-800 w-[50%] rounded-xl px-4 pt-8 pb-16"}>
+            <h1 className={"text-2xl text-center mb-4 font-extrabold"}>Sign Up</h1>
             <form onSubmit={handleSubmit(onSubmit)}
                   className={"flex flex-col items-center gap-4 bg-cyan-600 rounded-md p-4"}>
                 <div className="flex flex-col gap-2 w-[80%]">
@@ -92,12 +121,15 @@ const SignupPage = () => {
                                 required: {
                                     value: true,
                                     message: "필수"
+                                },
+                                validate: (value, formValues) => {
+                                    return formValues.password === value || '패스워드가 다릅니다'
                                 }
                             })}
                         />
                         {
                             errors.checkPassword &&
-                            <span className={"ml-2 text-red-700"}>{errors.checkPassword.message}</span>
+                          <span className={"ml-2 text-red-700"}>{errors.checkPassword.message}</span>
                         }
                     </div>
                 </div>
