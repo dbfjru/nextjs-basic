@@ -4,4 +4,5 @@ export interface ISignup {
     checkPassword: string;
     name: string;
     address: string;
+    birth: string;
 }

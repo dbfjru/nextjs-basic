@@ -2,6 +2,7 @@
 import React, {useEffect} from 'react';
 import {useForm} from "react-hook-form";
 import {ISignup} from "@/app/interfaces/types";
+import {DatePicker} from "antd";
 
 const SignupPage = () => {
     useEffect(() => {
@@ -23,6 +24,7 @@ const SignupPage = () => {
             checkPassword: '',
             name: '',
             address: '',
+            birth: ''
         }
     })
 
@@ -176,6 +178,29 @@ const SignupPage = () => {
                             errors.address && <span className={"ml-2 text-red-700"}>{errors.address.message}</span>
                         }
                     </div>
+                </div>
+
+                <div className="flex flex-col gap-2 w-[80%]">
+                    <label className={"text-lg font-bold"} htmlFor={"birth"}>
+                        생년월일
+                    </label>
+                    <div>
+                        <input
+                            id={"birth"}
+                            type="date"
+                            className={"w-[80%] border border-gray-300 rounded-md p-2"}
+                            {...register("birth", {
+                                required: {
+                                    value: true,
+                                    message: "필수"
+                                }
+                            })}
+                        />
+                        {
+                            errors.birth && <span className={"ml-2 text-red-700"}>{errors.birth.message}</span>
+                        }
+                    </div>
+                    <DatePicker/>
                 </div>
 
                 <button
